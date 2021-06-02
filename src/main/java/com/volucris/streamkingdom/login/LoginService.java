@@ -1,5 +1,6 @@
 package com.volucris.streamkingdom.login;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.volucris.streamkingdom.config.Secret;
 import com.volucris.streamkingdom.login.modal.TwitchResponse;
 import com.volucris.streamkingdom.login.modal.TwitchUsersResponse;
+import com.volucris.streamkingdom.login.repository.LoginDataAccess;
 
 @Service
 public class LoginService {
@@ -20,6 +22,9 @@ public class LoginService {
 	private static String REDIRECT_URI = "http://localhost:8080/";
 
 	private static String TWITCH_OAUTH2_URI = "https://id.twitch.tv/oauth2/token?client_id=%s&client_secret=%s&code=%s&grant_type=authorization_code&redirect_uri=%s";
+
+	@Autowired
+	private LoginDataAccess loginDataAccess;
 
 	public String getAccessToken(final String code) {
 		final RestTemplate restTemplate = new RestTemplate();
@@ -42,8 +47,7 @@ public class LoginService {
 		final HttpEntity<String> getRequest = new HttpEntity<String>(headers);
 		final ResponseEntity<TwitchUsersResponse> userResponse = restTemplate
 				.exchange("https://api.twitch.tv/helix/users", HttpMethod.GET, getRequest, TwitchUsersResponse.class);
-
-		restTemplate.exchange("https://api.twitch.tv/helix/users", HttpMethod.GET, getRequest, String.class);
+		this.loginDataAccess.save(userResponse.getBody().getTwitchUsers().get(0));
 		return userResponse;
 	}
 }

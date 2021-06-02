@@ -1,5 +1,7 @@
 package com.volucris.streamkingdom.login.modal;
 
+import org.springframework.data.annotation.Id;
+
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class TwitchUser {
@@ -11,6 +13,7 @@ public class TwitchUser {
 	private String displayName;
 
 	@JsonAlias("id")
+	@Id
 	private String id;
 
 	@JsonAlias("login")
