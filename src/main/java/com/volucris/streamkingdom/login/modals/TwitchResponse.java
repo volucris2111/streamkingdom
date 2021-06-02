@@ -1,4 +1,4 @@
-package com.volucris.streamkingdom.login;
+package com.volucris.streamkingdom.login.modals;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
