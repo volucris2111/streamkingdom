@@ -9,7 +9,10 @@
 
   <body>
   	<div>
-  		HERZLICHEN GLÜCKWUNSCH!!!! DU BIST EINGELOGGT!!!!
+ 		Herzlich willkommen, <span th:text="${user.displayName}"></span>!
+  	</div>
+  	<div>
+  		<img th:src="${user.profileImageUrl}"/>
   	</div>
   </body>
 </html>	

@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.volucris.streamkingdom.config.Secret;
-import com.volucris.streamkingdom.login.modals.TwitchResponse;
+import com.volucris.streamkingdom.login.modal.TwitchResponse;
+import com.volucris.streamkingdom.login.modal.TwitchUsersResponse;
 
 @Service
 public class LoginService {
@@ -32,14 +33,17 @@ public class LoginService {
 		return responseEntityStr.getBody().getAccessToken();
 	}
 
-	public ResponseEntity<String> getTwitchResponse(final String accessToken) {
+	public ResponseEntity<TwitchUsersResponse> getTwitchResponse(final String accessToken) {
 		final RestTemplate restTemplate = new RestTemplate();
 		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.add("Authorization", "Bearer " + accessToken);
 		headers.add("Client-Id", LoginService.CLIEND_ID);
 		final HttpEntity<String> getRequest = new HttpEntity<String>(headers);
-		final ResponseEntity<String> userResponse = restTemplate.exchange("https://api.twitch.tv/helix/users",
-				HttpMethod.GET, getRequest, String.class);
+		final ResponseEntity<TwitchUsersResponse> userResponse = restTemplate
+				.exchange("https://api.twitch.tv/helix/users", HttpMethod.GET, getRequest, TwitchUsersResponse.class);
+
+		restTemplate.exchange("https://api.twitch.tv/helix/users", HttpMethod.GET, getRequest, String.class);
 		return userResponse;
 	}
 }

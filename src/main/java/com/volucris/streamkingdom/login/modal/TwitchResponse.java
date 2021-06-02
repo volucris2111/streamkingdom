@@ -1,18 +1,18 @@
-package com.volucris.streamkingdom.login.modals;
+package com.volucris.streamkingdom.login.modal;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class TwitchResponse {
-	
+
 	@JsonAlias("access_token")
 	private String accessToken;
 
 	public String getAccessToken() {
-		return accessToken;
+		return this.accessToken;
 	}
 
-	public void setAccessToken(String accessToken) {
+	public void setAccessToken(final String accessToken) {
 		this.accessToken = accessToken;
 	}
-	
+
 }
