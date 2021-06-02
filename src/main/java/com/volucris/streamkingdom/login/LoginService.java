@@ -1,11 +1,22 @@
 package com.volucris.streamkingdom.login;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -49,5 +60,17 @@ public class LoginService {
 				.exchange("https://api.twitch.tv/helix/users", HttpMethod.GET, getRequest, TwitchUsersResponse.class);
 		this.loginDataAccess.save(userResponse.getBody().getTwitchUsers().get(0));
 		return userResponse;
+	}
+
+	public void login(final HttpServletRequest request, final String userId) {
+		final List<SimpleGrantedAuthority> grantedAuthorities = new LinkedList<>();
+		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+		final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userId, null,
+				grantedAuthorities);
+		final SecurityContext sc = SecurityContextHolder.getContext();
+		sc.setAuthentication(auth);
+		final HttpSession session = request.getSession(true);
+		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
 	}
 }
