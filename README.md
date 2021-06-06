@@ -63,9 +63,14 @@ Alle Gegenstände haben eine Qualitätsstufe, welche bei der Herstellung durch f
 - Stufe/Wissen im Rezept
 - Ausbaustufe der Produktionsstätte
 - Qualität des verwendeten Materials
+- Werkzeug
+- Möglicherweise weitere Faktoren
 - Glück ;)
 
+Rohstoffe, Zutaten usw. und Waren für die Bevölkerung einer Stadt werden gestapelt, Gegenstände zum Anlegen/Verbrauchen von Charakteren werden einzeln aufgeführt, da sich Werte unterscheiden können. Gegenstände haben eine Stabilität/Haltbarkeit. Diese kann wieder aufgefüllt werden, aber das Maximum sinkt bei jeder Reperatur. Bei 0 wird der Gegenstand zerstört. Niedrige Haltbarkeit senkt außerdem die Effektivität des Gegenstandes.
+
 **_Kämpfe:_**
+
 Automatische rundenbasierte Kämpfe, wobei ein Tick eine Runde ist. Verhalten der Teilnehmer kann festgelegt werden (Wann Heiltrank usw.). Zwischen den Runden ist Rückzug möglich. Kämpfe werden als Text dargestellt - weiteres muss definiert werden.
 
 **_Überlegungen:_**
