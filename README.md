@@ -57,12 +57,16 @@ Bsp. Kämpferische Professionen: Magier, Krieger, Schütze, Hauptmann, ....
 Bsp. Handwerklicke Professionen: Schreiner, Bergbau, Alchemist, Lederer, usw.
 
 **_Gegenstände:_**
+
 Alle Gegenstände haben eine Qualitätsstufe, welche bei der Herstellung durch folgende Faktoren bestimmt wird:
 - Stufe im Handwerk
 - Stufe/Wissen im Rezept
 - Ausbaustufe der Produktionsstätte
 - Qualität des verwendeten Materials
 - Glück ;)
+
+**_Kämpfe:_**
+Automatische rundenbasierte Kämpfe, wobei ein Tick eine Runde ist. Verhalten der Teilnehmer kann festgelegt werden (Wann Heiltrank usw.). Zwischen den Runden ist Rückzug möglich. Kämpfe werden als Text dargestellt - weiteres muss definiert werden.
 
 **_Überlegungen:_**
 - Soll es Diebe/Räumer/Spione geben? (Könnte Probleme unter Streamern geben, deswegen unsicher)
