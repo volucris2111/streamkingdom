@@ -56,7 +56,16 @@ Bsp. Kämpferische Professionen: Magier, Krieger, Schütze, Hauptmann, ....
 
 Bsp. Handwerklicke Professionen: Schreiner, Bergbau, Alchemist, Lederer, usw.
 
+**_Gegenstände:_**
+Alle Gegenstände haben eine Qualitätsstufe, welche bei der Herstellung durch folgende Faktoren bestimmt wird:
+- Stufe im Handwerk
+- Stufe/Wissen im Rezept
+- Ausbaustufe der Produktionsstätte
+- Qualität des verwendeten Materials
+- Glück ;)
+
 **_Überlegungen:_**
-- Soll es Diebe/Räumer/Spione geben?
-- Wie können Chatter (viel Interaktionen mit anderen Spielern) und Lurker (welche nur für sich spielen wollen) passend intigriert werden?
+- Soll es Diebe/Räumer/Spione geben? (Könnte Probleme unter Streamern geben, deswegen unsicher)
+- Wie können Chatter (viel Interaktionen mit anderen Spielern) und Lurker (welche nur für sich spielen wollen) jeweils ein für sie passendes Spielangebot gemacht werden?
 - Kommunikation von Streamern durch Botenreitern: Brauchen 2 Ticks, bis der Brief angekommen ist, um nicht zu sehr vom Stream abzulenken und um keine privaten Nachrichten anderer Chatkanäle versehentlich zu veröffentlichen, falls das Spiel gestreamt werden sollte
+- Roguelike/Roguelite/Survival?
