@@ -9,10 +9,10 @@
 
   <body>
   	<div>
- 		Herzlich willkommen, <span th:text="${user.displayName}"></span>!
+ 		Herzlich willkommen, <span th:text="${session.user.displayName}"></span>!
   	</div>
   	<div>
-  		<img th:src="${user.profileImageUrl}"/>
+  		<img th:src="${session.user.profileImageUrl}"/>
   	</div>
   </body>
-</html>	
+</html>

@@ -21,21 +21,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.volucris.streamkingdom.config.Secret;
-import com.volucris.streamkingdom.login.modal.TwitchResponse;
-import com.volucris.streamkingdom.login.modal.TwitchUsersResponse;
-import com.volucris.streamkingdom.login.repository.LoginDataAccess;
+import com.volucris.streamkingdom.login.model.TwitchResponse;
+import com.volucris.streamkingdom.login.model.TwitchUser;
+import com.volucris.streamkingdom.login.model.TwitchUsersResponse;
+import com.volucris.streamkingdom.user.dao.UserDao;
+import com.volucris.streamkingdom.user.model.User;
 
 @Service
 public class LoginService {
 
 	private static String CLIEND_ID = "vqjecsdv2qjlssrzrvj4n9etmovy0l";
 
-	private static String REDIRECT_URI = "http://localhost:8080/";
+	private static String REDIRECT_URI = "http://localhost:8080/login";
 
 	private static String TWITCH_OAUTH2_URI = "https://id.twitch.tv/oauth2/token?client_id=%s&client_secret=%s&code=%s&grant_type=authorization_code&redirect_uri=%s";
 
 	@Autowired
-	private LoginDataAccess loginDataAccess;
+	private UserDao userDao;
 
 	public String getAccessToken(final String code) {
 		final RestTemplate restTemplate = new RestTemplate();
@@ -49,7 +51,7 @@ public class LoginService {
 		return responseEntityStr.getBody().getAccessToken();
 	}
 
-	public ResponseEntity<TwitchUsersResponse> getTwitchResponse(final String accessToken) {
+	public User getTwitchResponse(final String accessToken) {
 		final RestTemplate restTemplate = new RestTemplate();
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -58,19 +60,30 @@ public class LoginService {
 		final HttpEntity<String> getRequest = new HttpEntity<String>(headers);
 		final ResponseEntity<TwitchUsersResponse> userResponse = restTemplate
 				.exchange("https://api.twitch.tv/helix/users", HttpMethod.GET, getRequest, TwitchUsersResponse.class);
-		this.loginDataAccess.save(userResponse.getBody().getTwitchUsers().get(0));
-		return userResponse;
+
+		final TwitchUser twitchUser = userResponse.getBody().getTwitchUsers().get(0);
+		User user = this.userDao.findByTwitchId(twitchUser.getId());
+		if (user == null) {
+			user = new User();
+			user.setBroadcasterType(twitchUser.getBroadcasterType());
+			user.setDisplayName(twitchUser.getBroadcasterType());
+			user.setLogin(twitchUser.getLogin());
+			user.setProfileImageUrl(twitchUser.getProfileImageUrl());
+			user.setTwitchId(twitchUser.getId());
+			this.userDao.save(user);
+		}
+		return user;
 	}
 
-	public void login(final HttpServletRequest request, final String userId) {
+	public void login(final HttpServletRequest request, final User user) {
 		final List<SimpleGrantedAuthority> grantedAuthorities = new LinkedList<>();
 		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-		final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userId, null,
+		final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user.getId(), null,
 				grantedAuthorities);
 		final SecurityContext sc = SecurityContextHolder.getContext();
 		sc.setAuthentication(auth);
 		final HttpSession session = request.getSession(true);
+		session.setAttribute("user", user);
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
 	}
 }

@@ -1,4 +1,4 @@
-package com.volucris.streamkingdom.user;
+package com.volucris.streamkingdom.user.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

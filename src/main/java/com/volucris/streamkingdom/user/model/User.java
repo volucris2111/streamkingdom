@@ -1,26 +1,22 @@
-package com.volucris.streamkingdom.login.modal;
+package com.volucris.streamkingdom.user.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+public class User {
 
-public class TwitchUser {
-
-	@JsonAlias("broadcaster_type")
 	private String broadcasterType;
 
-	@JsonAlias("display_name")
 	private String displayName;
 
-	@JsonAlias("id")
 	@Id
-	private String id;
+	private ObjectId id;
 
-	@JsonAlias("login")
 	private String login;
 
-	@JsonAlias("profile_image_url")
 	private String profileImageUrl;
+
+	private String twitchId;
 
 	public String getBroadcasterType() {
 		return this.broadcasterType;
@@ -30,7 +26,7 @@ public class TwitchUser {
 		return this.displayName;
 	}
 
-	public String getId() {
+	public ObjectId getId() {
 		return this.id;
 	}
 
@@ -42,6 +38,10 @@ public class TwitchUser {
 		return this.profileImageUrl;
 	}
 
+	public String getTwitchId() {
+		return this.twitchId;
+	}
+
 	public void setBroadcasterType(final String broadcasterType) {
 		this.broadcasterType = broadcasterType;
 	}
@@ -50,7 +50,7 @@ public class TwitchUser {
 		this.displayName = displayName;
 	}
 
-	public void setId(final String id) {
+	public void setId(final ObjectId id) {
 		this.id = id;
 	}
 
@@ -62,4 +62,7 @@ public class TwitchUser {
 		this.profileImageUrl = profileImageUrl;
 	}
 
+	public void setTwitchId(final String twitchId) {
+		this.twitchId = twitchId;
+	}
 }

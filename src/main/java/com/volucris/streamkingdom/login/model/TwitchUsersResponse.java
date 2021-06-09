@@ -1,4 +1,4 @@
-package com.volucris.streamkingdom.login.modal;
+package com.volucris.streamkingdom.login.model;
 
 import java.util.List;
 
