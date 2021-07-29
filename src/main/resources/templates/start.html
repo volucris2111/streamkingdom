@@ -9,9 +9,10 @@
 
   <body>
   	<div>
-  		<a href="https://id.twitch.tv/oauth2/authorize?client_id=vqjecsdv2qjlssrzrvj4n9etmovy0l&redirect_uri=http://192.168.178.29:8080/logint&response_type=code&scope=">
-			LOGIN AT TWITCH
-  		</a>
+ 		Herzlich willkommen, <span th:text="${session.user.displayName}"></span>!
+  	</div>
+  	<div>
+  		<img th:src="${session.user.profileImageUrl}"/>
   	</div>
   </body>
 </html>

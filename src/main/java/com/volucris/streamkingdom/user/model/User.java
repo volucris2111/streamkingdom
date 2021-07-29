@@ -1,5 +1,7 @@
 package com.volucris.streamkingdom.user.model;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
@@ -15,6 +17,8 @@ public class User {
 	private String login;
 
 	private String profileImageUrl;
+
+	private List<ObjectId> realmIds;
 
 	private String twitchId;
 
@@ -36,6 +40,10 @@ public class User {
 
 	public String getProfileImageUrl() {
 		return this.profileImageUrl;
+	}
+
+	public List<ObjectId> getRealmIds() {
+		return this.realmIds;
 	}
 
 	public String getTwitchId() {
@@ -60,6 +68,10 @@ public class User {
 
 	public void setProfileImageUrl(final String profileImageUrl) {
 		this.profileImageUrl = profileImageUrl;
+	}
+
+	public void setRealmIds(final List<ObjectId> realmIds) {
+		this.realmIds = realmIds;
 	}
 
 	public void setTwitchId(final String twitchId) {

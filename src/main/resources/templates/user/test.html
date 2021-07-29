@@ -9,7 +9,12 @@
 
   <body>
   	<div>
- 		WOAAAAA DU BIST HIER?!?!?!?!?!
+ 		Herzlich willkommen, <span th:text="${session.user.displayName}"></span>! Du bist ein <span th:text="${session.user.broadcasterType}"></span>
+ 		<span th:if="${session.user.broadcasterType == 'affiliate' || session.user.broadcasterType == 'partner'}">VERWALTEN</span>
+ 		<span>WÄHLENT</span>
+  	</div>
+  	<div>
+  		<img th:src="${session.user.profileImageUrl}"/>
   	</div>
   </body>
-</html>	
+</html>

@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class Character {
+
 	private CharacterType characterType;
 
 	@Id
@@ -44,5 +45,4 @@ public class Character {
 	public void setRealmId(final ObjectId realmId) {
 		this.realmId = realmId;
 	}
-
 }

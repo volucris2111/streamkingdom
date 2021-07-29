@@ -39,6 +39,16 @@ public class LoginService {
 	@Autowired
 	private UserDao userDao;
 
+	private User createUserByTwitchUser(final TwitchUser twitchUser) {
+		final User user = new User();
+		user.setBroadcasterType(twitchUser.getBroadcasterType());
+		user.setDisplayName(twitchUser.getDisplayName());
+		user.setLogin(twitchUser.getLogin());
+		user.setProfileImageUrl(twitchUser.getProfileImageUrl());
+		user.setTwitchId(twitchUser.getId());
+		return this.userDao.save(user);
+	}
+
 	public String getAccessToken(final String code) {
 		final RestTemplate restTemplate = new RestTemplate();
 		final HttpHeaders headers = new HttpHeaders();
@@ -64,13 +74,7 @@ public class LoginService {
 		final TwitchUser twitchUser = userResponse.getBody().getTwitchUsers().get(0);
 		User user = this.userDao.findByTwitchId(twitchUser.getId());
 		if (user == null) {
-			user = new User();
-			user.setBroadcasterType(twitchUser.getBroadcasterType());
-			user.setDisplayName(twitchUser.getBroadcasterType());
-			user.setLogin(twitchUser.getLogin());
-			user.setProfileImageUrl(twitchUser.getProfileImageUrl());
-			user.setTwitchId(twitchUser.getId());
-			this.userDao.save(user);
+			user = this.createUserByTwitchUser(twitchUser);
 		}
 		return user;
 	}

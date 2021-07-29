@@ -22,14 +22,14 @@ public class LoginController {
 	@GetMapping("/login")
 	public ModelAndView getLoginUser(@RequestParam(required = false) final String code,
 			final HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("login");
+		final ModelAndView modelAndView = new ModelAndView("login");
 		if (code != null) {
 			this.loginService.login(request,
 					this.loginService.getTwitchResponse(this.loginService.getAccessToken(code)));
 		}
-		if (request.getSession(false) != null) {
-			modelAndView = new ModelAndView("redirect:/");
-		}
+//		if (request.getSession(false) != null) {
+//			modelAndView = new ModelAndView("redirect:/start");
+//		}
 		return modelAndView;
 	}
 }

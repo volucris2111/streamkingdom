@@ -7,4 +7,6 @@ import com.volucris.streamkingdom.realm.model.Realm;
 
 public interface RealmDao extends MongoRepository<Realm, ObjectId> {
 
+	Realm findByOwnerUserId(ObjectId ownerUserId);
+
 }

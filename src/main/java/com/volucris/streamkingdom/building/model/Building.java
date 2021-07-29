@@ -4,7 +4,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class Building {
+
 	private BuildingType buildingType;
+
 	@Id
 	private ObjectId id;
 
